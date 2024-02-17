@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service DeployDockerCompose {
+    rpc Deploy (DeployDockerComposeRequest) returns (DeployDockerComposeResponse);
+}
+
+message DeployDockerComposeRequest {
+    bytes dockerComposeYaml = 1;
+    bytes envFile = 2;
+    string serviceName = 3;
+}
+
+message DeployDockerComposeResponse {
+    string message = 1;
+    float timeTaken = 2;
+}
