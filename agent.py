@@ -1,4 +1,5 @@
 import subprocess
+import os
 from concurrent import futures
 import logging
 import time
@@ -44,6 +45,14 @@ def run_subprocess_with_logging(command: list):
         logging.info(result.stdout.decode("utf-8"))
     if result.stderr:
         logging.info(result.stderr.decode("utf-8"))
+
+
+def docker_auth():
+    """Authenticate with the docker registry"""
+
+    os.system(
+        f'echo "{os.environ["DOCKER_REGISTRY_TOKEN"]}" | docker login --username {os.environ["DOCKER_REGISTRY_USERNAME"]} --password-stdin {os.environ["DOCKER_REGISTRY_URL"]}'
+    )
 
 
 class DeployServicer(deployAgent_pb2_grpc.DeployDockerComposeServicer):
@@ -126,4 +135,5 @@ def serve():
 
 
 if __name__ == "__main__":
+    docker_auth()
     serve()

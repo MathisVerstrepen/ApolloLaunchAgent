@@ -3,3 +3,6 @@ py_protos
 
 # Python virtual environment for development
 venv
+
+# Environment variables
+.env

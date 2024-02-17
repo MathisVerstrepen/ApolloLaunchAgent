@@ -11,3 +11,7 @@ services:
       - ./agent.py:/agent.py
     ports:
       - "50051:50051"
+    environment:
+      - DOCKER_REGISTRY_USERNAME=${DOCKER_REGISTRY_USERNAME}
+      - DOCKER_REGISTRY_TOKEN=${DOCKER_REGISTRY_TOKEN}
+      - DOCKER_REGISTRY_URL=${DOCKER_REGISTRY_URL}
