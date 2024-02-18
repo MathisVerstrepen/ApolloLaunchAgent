@@ -100,6 +100,19 @@ class DeployServicer(deployAgent_pb2_grpc.DeployDockerComposeServicer):
             ["docker", "compose", "-f", "/agent/tmp/docker-compose.yml", "down"],
         )
 
+        # Force pull the images
+        run_subprocess_with_logging(
+            [
+                "docker",
+                "compose",
+                "--env-file",
+                "/agent/tmp/tmp.env",
+                "-f",
+                "/agent/tmp/docker-compose.yml",
+                "pull",
+            ],
+        )
+
         # Deploy the docker compose
         run_subprocess_with_logging(
             [
